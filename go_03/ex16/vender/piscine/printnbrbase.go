@@ -13,6 +13,9 @@ func CheckBase(base string) bool {
 	}
 	for i := 0; i < length-1; i++ {
 		// A base should not contain + or - characters
+		if runes[i] == '+' || runes[i] == '-' {
+			return false
+		}
 		for j := i + 1; j < length; j++ {
 			// Each character of a base must be unique
 			if runes[i] == runes[j] {
