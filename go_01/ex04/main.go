@@ -1,6 +1,6 @@
 package main
 
-import "ex04/vender/piscine"
+import "piscine"
 
 func main() {
 	piscine.PrintStr("Hello, World!")

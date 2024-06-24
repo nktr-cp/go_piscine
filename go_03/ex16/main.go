@@ -1,8 +1,8 @@
 package main
 
 import (
-	"ex16/vender/ft"
-	"ex16/vender/piscine"
+	"ft"
+	"piscine"
 )
 
 func main() {

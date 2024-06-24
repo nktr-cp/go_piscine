@@ -1,7 +1,7 @@
 package main
 
 import (
-	"ex03/vender/piscine"
+	"piscine"
 )
 
 func main() {

@@ -1,6 +1,6 @@
 package main
 
-import "ex02/vender/piscine"
+import "piscine"
 
 func main() {
 	piscine.PrintDigits()

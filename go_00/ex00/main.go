@@ -1,6 +1,6 @@
 package main
 
-import "ex00/vender/piscine"
+import "piscine"
 
 func main() {
 	piscine.PrintAlphabet()

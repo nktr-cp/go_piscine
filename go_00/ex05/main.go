@@ -1,6 +1,6 @@
 package main
 
-import "ex05/vender/piscine"
+import "piscine"
 
 func main() {
 	piscine.PrintComb2()

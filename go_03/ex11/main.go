@@ -1,8 +1,8 @@
 package main
 
 import (
-	"ex11/vender/piscine"
 	"fmt"
+	"piscine"
 )
 
 func main() {
