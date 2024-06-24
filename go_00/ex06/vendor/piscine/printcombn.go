@@ -9,6 +9,7 @@ func CombnRecurse(a [10]rune, index int, n int, start int) {
 		}
 
 		if (int)(a[0]-'0') != 10-n {
+			ft.PrintRune(',')
 			ft.PrintRune(' ')
 		}
 	} else {
