@@ -8,5 +8,5 @@ func StrRev(s string) string {
 		result += string(s[i])
 	}
 
-	return string(result)
+	return result
 }
