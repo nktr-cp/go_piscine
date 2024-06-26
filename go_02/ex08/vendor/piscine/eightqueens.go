@@ -1,6 +1,6 @@
 package piscine
 
-import "fmt"
+import "ft"
 
 func IsValidPosition(pattern [8]int, current int, check int) bool {
 	for i := 0; i < current; i++ {
@@ -18,9 +18,9 @@ func IsValidPosition(pattern [8]int, current int, check int) bool {
 func EightQueensRecursion(pattern [8]int, current int) {
 	if current == 8 {
 		for i := 0; i < 8; i++ {
-			fmt.Print(pattern[i] + 1)
+			ft.PrintRune(rune(pattern[i] + 1 + '0'))
 		}
-		fmt.Println("")
+		ft.PrintRune('\n')
 		return
 	}
 
