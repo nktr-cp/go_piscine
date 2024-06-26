@@ -5,7 +5,7 @@ func Sqrt(n int) int {
 		return 0
 	}
 	un := uint64(n)
-	var pos uint64
+	var pos uint64 = 1
 	for ; pos*pos < un; pos++ {
 	}
 	if pos*pos == un {
