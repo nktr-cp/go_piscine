@@ -1,10 +1,13 @@
 package piscine
 
 func CheckBase(base string) bool {
+	length := 0
+	for range base {
+		length++
+	}
 	runes := []rune(base)
-	length := len(runes)
 	// A base must contain at least 2 characters
-	if len(runes) < 2 {
+	if length < 2 {
 		return false
 	}
 	for i := 0; i < length-1; i++ {
@@ -28,7 +31,10 @@ func AtoiBase(s string, base string) int {
 	}
 
 	result := 0
-	base_length := len(base)
+	base_length := 0
+	for range base {
+		base_length++
+	}
 	for _, c := range s {
 		index := 0
 		for i, b := range base {

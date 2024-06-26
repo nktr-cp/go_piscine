@@ -5,10 +5,13 @@ import (
 )
 
 func CheckBase(base string) bool {
+	length := 0
+	for range base {
+		length++
+	}
 	runes := []rune(base)
-	length := len(runes)
 	// A base must contain at least 2 characters
-	if len(runes) < 2 {
+	if length < 2 {
 		return false
 	}
 	for i := 0; i < length-1; i++ {
@@ -27,8 +30,11 @@ func CheckBase(base string) bool {
 }
 
 func PrintNbrBaseRecur(nbr int, base string) {
+	length := 0
+	for range base {
+		length++
+	}
 	runes := []rune(base)
-	length := len(runes)
 	if nbr < 0 {
 		ft.PrintRune('-')
 		nbr = -nbr
