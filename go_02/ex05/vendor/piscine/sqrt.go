@@ -1,11 +1,15 @@
 package piscine
 
 func Sqrt(n int) int {
-	var pos int = 1
-	for ; pos*pos < n; pos++ {
+	if n < 0 {
+		return 0
 	}
-	if pos*pos == n {
-		return pos
+	un := uint64(n)
+	var pos uint64
+	for ; pos*pos < un; pos++ {
+	}
+	if pos*pos == un {
+		return int(pos)
 	} else {
 		return 0
 	}
