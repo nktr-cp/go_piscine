@@ -14,7 +14,7 @@ func CheckBase(base string) bool {
 	if length < 2 {
 		return false
 	}
-	for i := 0; i < length-1; i++ {
+	for i := 0; i < length; i++ {
 		// A base should not contain + or - characters
 		if runes[i] == '+' || runes[i] == '-' {
 			return false
@@ -29,16 +29,12 @@ func CheckBase(base string) bool {
 	return true
 }
 
-func PrintNbrBaseRecur(nbr int, base string) {
-	length := 0
+func PrintNbrBaseRecur(nbr uint64, base string) {
+	length := uint64(0)
 	for range base {
 		length++
 	}
 	runes := []rune(base)
-	if nbr < 0 {
-		ft.PrintRune('-')
-		nbr = -nbr
-	}
 	if nbr >= length {
 		PrintNbrBaseRecur(nbr/length, base)
 	}
@@ -52,5 +48,11 @@ func PrintNbrBase(nbr int, base string) {
 		return
 	}
 
-	PrintNbrBaseRecur(nbr, base)
+	unbr := uint64(nbr)
+	if nbr < 0 {
+		ft.PrintRune('-')
+		unbr = -unbr
+	}
+
+	PrintNbrBaseRecur(unbr, base)
 }
