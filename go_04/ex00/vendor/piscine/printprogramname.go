@@ -13,7 +13,7 @@ func PrintProgramName() {
 		length++
 	}
 	for i := length - 1; i >= 0; i-- {
-		if fullPath[i] == '/' || fullPath[i] == '\\' {
+		if fullPath[i] == '/' {
 			start = i + 1
 			break
 		}
