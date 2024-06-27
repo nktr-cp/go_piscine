@@ -10,7 +10,7 @@ func CheckBase(base string) bool {
 	if length < 2 {
 		return false
 	}
-	for i := 0; i < length-1; i++ {
+	for i := 0; i < length; i++ {
 		// A base should not contain + or - characters
 		if runes[i] == '+' || runes[i] == '-' {
 			return false
