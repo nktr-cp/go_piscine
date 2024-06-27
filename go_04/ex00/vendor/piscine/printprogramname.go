@@ -5,26 +5,22 @@ import (
 	"os"
 )
 
-func Split(str string, sep rune) []string {
-	var parts []string
-	start := 0
-	for i, char := range str {
-		if char == sep {
-			parts = append(parts, str[start:i])
-			start = i + 1
-		}
-	}
-	parts = append(parts, str[start:])
-	return parts
-}
-
 func PrintProgramName() {
 	fullPath := os.Args[0]
-	parts := Split(fullPath, '/')
-	programName := parts[len(parts)-1]
-
-	for _, char := range programName {
-		ft.PrintRune(char)
+	start := 0
+	length := 0
+	for range fullPath {
+		length++
+	}
+	for i := length - 1; i >= 0; i-- {
+		if fullPath[i] == '/' || fullPath[i] == '\\' {
+			start = i + 1
+			break
+		}
+	}
+	programName := fullPath[start:]
+	for _, r := range programName {
+		ft.PrintRune(r)
 	}
 	ft.PrintRune('\n')
 }

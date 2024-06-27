@@ -7,7 +7,11 @@ import (
 
 func RevParams() {
 	args := os.Args
-	for i := len(args) - 1; i >= 1; i-- {
+	args_len := 0
+	for range args {
+		args_len++
+	}
+	for i := args_len - 1; i >= 1; i-- {
 		for _, c := range args[i] {
 			ft.PrintRune(c)
 		}
