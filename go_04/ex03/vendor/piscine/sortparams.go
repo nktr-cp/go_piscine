@@ -6,24 +6,21 @@ import (
 )
 
 func SortParams() {
-	args := os.Args
-	var params []string
-
-	for i, arg := range args {
-		if i > 0 {
-			params = append(params, arg)
-		}
+	args := os.Args[1:]
+	args_len := 0
+	for range args {
+		args_len++
 	}
 
-	for i := 0; i < len(params)-1; i++ {
-		for j := i + 1; j < len(params); j++ {
-			if Compare(params[i], params[j]) == 1 {
-				params[i], params[j] = params[j], params[i]
+	for i := 0; i < args_len; i++ {
+		for j := i + 1; j < args_len; j++ {
+			if Compare(args[i], args[j]) == 1 {
+				args[i], args[j] = args[j], args[i]
 			}
 		}
 	}
 
-	for _, arg := range params {
+	for _, arg := range args {
 		for _, char := range arg {
 			ft.PrintRune(char)
 		}
