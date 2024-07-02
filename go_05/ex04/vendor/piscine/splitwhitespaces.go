@@ -1,11 +1,15 @@
 package piscine
 
 func SplitWhiteSpaces(str string) []string {
+	str_len := 0
+	for range str {
+		str_len++
+	}
 	result := []string{}
 	start_pos := 0
-	for start_pos < len(str) {
+	for start_pos < str_len {
 		end_pos := start_pos
-		for end_pos < len(str) && str[end_pos] != ' ' && str[end_pos] != '\t' && str[end_pos] != '\n' {
+		for end_pos < str_len && str[end_pos] != ' ' && str[end_pos] != '\t' && str[end_pos] != '\n' {
 			end_pos++
 		}
 		result = append(result, str[start_pos:end_pos])

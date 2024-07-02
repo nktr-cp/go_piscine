@@ -20,7 +20,10 @@ func AtoiBase(s string, base string) int {
 
 func ConvertBase(nbr, baseFrom, baseTo string) string {
 	nbr_i := AtoiBase(nbr, baseFrom)
-	base_len := len(baseTo)
+	base_len := 0
+	for range baseTo {
+		base_len++
+	}
 	result := ""
 	for nbr_i > 0 {
 		result = string(baseTo[nbr_i%base_len]) + result
