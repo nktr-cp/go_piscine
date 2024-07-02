@@ -14,6 +14,9 @@ func SplitWhiteSpaces(str string) []string {
 		}
 		result = append(result, str[start_pos:end_pos])
 		start_pos = end_pos + 1
+		for start_pos < str_len && (str[start_pos] == ' ' || str[start_pos] == '\t' || str[start_pos] == '\n') {
+			start_pos++
+		}
 	}
 
 	return result
