@@ -80,10 +80,11 @@ func countBytes(filename string) int {
 	return fileBytes
 }
 
-func printFile(data ZtailAttrs, filename string) {
+func printFile(data ZtailAttrs, filename string, status *int) {
 	file, err := os.Open(filename)
 	if err != nil {
 		printErr(filename)
+		*status = 1
 		return
 	}
 	defer file.Close()
@@ -111,22 +112,23 @@ func printConnect(data *ZtailAttrs, idx int) {
 	os.Stdout.WriteString("==> " + data.files[idx] + " <==\n")
 }
 
-func printFiles(data ZtailAttrs) {
+func printFiles(data ZtailAttrs, status *int) {
 	for i, filename := range data.files {
 		_, err := os.Stat(filename)
 		if os.IsNotExist(err) {
 			printErr(filename)
+			*status = 1
 			continue
 		}
 
 		if data.fileNum > 1 {
 			printConnect(&data, i)
 		}
-		printFile(data, filename)
+		printFile(data, filename, status)
 	}
 }
 
-func Ztail(args []string) {
+func Ztail(args []string) int {
 	arg_len := 0
 	for range args {
 		arg_len++
@@ -149,9 +151,11 @@ func Ztail(args []string) {
 		os.Exit(1)
 	}
 
+	status := 0
 	if arg_len == 2 {
 		tailStdin(data)
 	} else {
-		printFiles(data)
+		printFiles(data, &status)
 	}
+	return status
 }

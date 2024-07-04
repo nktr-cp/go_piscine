@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	piscine.Cat(os.Args[1:])
+	os.Exit(piscine.Cat(os.Args[1:]))
 }

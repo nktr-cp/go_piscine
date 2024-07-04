@@ -22,11 +22,12 @@ func catStdin() {
 	}
 }
 
-func catFile(filename string) {
+func catFile(filename string, status *int) {
 	file, err := os.Open(filename)
 	defer file.Close()
 	if err != nil {
-		printStr("File does not exist\n")
+		*status = 1
+		printStr("cat: cannot read " + filename + "\n")
 	} else {
 		buf := []byte{0}
 
@@ -40,16 +41,18 @@ func catFile(filename string) {
 	}
 }
 
-func Cat(args []string) {
+func Cat(args []string) int {
 	arg_len := 0
 	for range args {
 		arg_len++
 	}
+	status := 0
 	if arg_len == 0 {
 		catStdin()
 	} else {
 		for i := 0; i < arg_len; i++ {
-			catFile(args[i])
+			catFile(args[i], &status)
 		}
 	}
+	return status
 }

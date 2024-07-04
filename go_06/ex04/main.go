@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	piscine.Ztail(os.Args[1:])
+	os.Exit(piscine.Ztail(os.Args[1:]))
 }
