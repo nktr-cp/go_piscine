@@ -18,6 +18,7 @@ func catStdin() {
 		if err != nil {
 			if err.Error() != "EOF" {
 				printStr("ERROR: " + err.Error() + "\n")
+				os.Exit(1)
 			}
 			return
 		}
@@ -32,6 +33,7 @@ func catFile(filename string, status *int) {
 		*status = 1
 		if err.Error() != "EOF" {
 			printStr("ERROR: " + err.Error() + "\n")
+			os.Exit(1)
 		}
 		return
 	} else {
