@@ -16,6 +16,9 @@ func catStdin() {
 	for {
 		_, err := os.Stdin.Read(buf)
 		if err != nil {
+			if err.Error() != "EOF" {
+				printStr("ERROR: " + err.Error() + "\n")
+			}
 			return
 		}
 		os.Stdout.Write(buf)
@@ -27,7 +30,10 @@ func catFile(filename string, status *int) {
 	defer file.Close()
 	if err != nil {
 		*status = 1
-		printStr("cat: cannot read " + filename + "\n")
+		if err.Error() != "EOF" {
+			printStr("ERROR: " + err.Error() + "\n")
+		}
+		return
 	} else {
 		buf := []byte{0}
 

@@ -55,10 +55,6 @@ func tailStdin(data ZtailAttrs) {
 	}
 }
 
-func printErr(filename string) {
-	os.Stdout.WriteString("ztail: " + filename + ": No such file or directory\n")
-}
-
 func countBytes(filename string) int {
 	file, err := os.Open(filename)
 	if err != nil {
@@ -83,7 +79,7 @@ func countBytes(filename string) int {
 func printFile(data ZtailAttrs, filename string, status *int) {
 	file, err := os.Open(filename)
 	if err != nil {
-		printErr(filename)
+		os.Stdout.WriteString(err.Error() + "\n")
 		*status = 1
 		return
 	}
@@ -114,9 +110,9 @@ func printConnect(data *ZtailAttrs, idx int) {
 
 func printFiles(data ZtailAttrs, status *int) {
 	for i, filename := range data.files {
-		_, err := os.Stat(filename)
+		_, err := os.Open(filename)
 		if os.IsNotExist(err) {
-			printErr(filename)
+			os.Stdout.WriteString(err.Error() + "\n")
 			*status = 1
 			continue
 		}
