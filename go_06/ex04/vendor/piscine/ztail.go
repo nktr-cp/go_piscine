@@ -43,6 +43,9 @@ func tailStdin(data ZtailAttrs) {
 	for {
 		n, err := os.Stdin.Read(data.buff)
 		if n <= 0 || err != nil {
+			if err != nil && err.Error() != "EOF" {
+				os.Stdout.WriteString(err.Error() + "\n")
+			}
 			break
 		}
 		fillOutStr(&outStr, data, doneBytes)
@@ -58,6 +61,9 @@ func tailStdin(data ZtailAttrs) {
 func countBytes(filename string) int {
 	file, err := os.Open(filename)
 	if err != nil {
+		if err.Error() != "EOF" {
+			os.Stdout.WriteString(err.Error() + "\n")
+		}
 		return 0
 	}
 	defer file.Close()
@@ -68,6 +74,9 @@ func countBytes(filename string) int {
 	for {
 		bytesRead, err := file.Read(buffer)
 		if bytesRead <= 0 || err != nil {
+			if err != nil && err.Error() != "EOF" {
+				os.Stdout.WriteString(err.Error() + "\n")
+			}
 			break
 		}
 		fileBytes += int(bytesRead)
@@ -79,7 +88,9 @@ func countBytes(filename string) int {
 func printFile(data ZtailAttrs, filename string, status *int) {
 	file, err := os.Open(filename)
 	if err != nil {
-		os.Stdout.WriteString(err.Error() + "\n")
+		if err.Error() != "EOF" {
+			os.Stdout.WriteString(err.Error() + "\n")
+		}
 		*status = 1
 		return
 	}
@@ -92,6 +103,9 @@ func printFile(data ZtailAttrs, filename string, status *int) {
 	for {
 		bytesRead, err := file.Read(buffer)
 		if bytesRead <= 0 || err != nil {
+			if err != nil && err.Error() != "EOF" {
+				os.Stdout.WriteString(err.Error() + "\n")
+			}
 			break
 		}
 		if bytesDone+data.byteSize >= bytesRest {
@@ -111,7 +125,7 @@ func printConnect(data *ZtailAttrs, idx int) {
 func printFiles(data ZtailAttrs, status *int) {
 	for i, filename := range data.files {
 		_, err := os.Open(filename)
-		if os.IsNotExist(err) {
+		if err != nil {
 			os.Stdout.WriteString(err.Error() + "\n")
 			*status = 1
 			continue

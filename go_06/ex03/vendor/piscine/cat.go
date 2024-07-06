@@ -40,6 +40,10 @@ func catFile(filename string, status *int) {
 		for {
 			_, err := file.Read(buf)
 			if err != nil {
+				if err.Error() != "EOF" {
+					*status = 1
+					printStr("ERROR: " + err.Error() + "\n")
+				}
 				return
 			}
 			os.Stdout.Write(buf)
