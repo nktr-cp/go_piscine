@@ -157,7 +157,7 @@ func Ztail(args []string) int {
 	}
 
 	if data.byteSize == -1 {
-		os.Stdout.WriteString("ztail: illegal offset -- " + args[0] + "\n")
+		os.Stdout.WriteString("ztail: illegal offset -- " + args[1] + "\n")
 		os.Exit(1)
 	}
 
