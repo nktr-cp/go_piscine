@@ -2,8 +2,6 @@ package piscine
 
 import "os"
 
-// import "fmt" // DEBUG
-
 func atoi(str string) int {
 	str_len := 0
 	for range str {
@@ -34,10 +32,10 @@ func atoi(str string) int {
 	for i < str_len && str[i] >= '0' && str[i] <= '9' {
 		digit := int(str[i] - '0')
 		if !neg && (res > (maxInt-digit)/10) {
-			return maxInt
+			os.Exit(1)
 		}
 		if neg && (-res < (minInt+digit)/10) {
-			return minInt
+			os.Exit(1)
 		}
 		res = res*10 + digit
 		i++
@@ -131,12 +129,15 @@ func detectMulOverflow(n1, n2 int) bool {
 			return true
 		}
 	}
+	if (n1 == minInt && n2 == -1) || (n2 == minInt && n1 == -1) {
+		return true
+	}
 	return false
 }
 
 func Doop(args []string) int {
 	if !checkArgs(args) {
-		os.Exit(0)
+		os.Exit(1)
 	}
 
 	n1 := atoi(args[0])
@@ -145,29 +146,29 @@ func Doop(args []string) int {
 
 	if op == "+" {
 		if detectAddOverflow(n1, n2) {
-			os.Exit(0)
+			os.Exit(1)
 		}
 		return n1 + n2
 	} else if op == "-" {
 		if detectAddOverflow(n1, -n2) {
-			os.Exit(0)
+			os.Exit(1)
 		}
 		return n1 - n2
 	} else if op == "*" {
 		if detectMulOverflow(n1, n2) {
-			os.Exit(0)
+			os.Exit(1)
 		}
 		return n1 * n2
 	} else if op == "/" {
 		if n2 == 0 {
 			os.Stdout.WriteString("No division by 0\n")
-			os.Exit(0)
+			os.Exit(1)
 		}
 		return n1 / n2
 	} else if op == "%" {
 		if n2 == 0 {
 			os.Stdout.WriteString("No modulo by 0\n")
-			os.Exit(0)
+			os.Exit(1)
 		}
 		return n1 % n2
 	}
