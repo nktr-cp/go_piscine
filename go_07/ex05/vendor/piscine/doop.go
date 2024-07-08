@@ -2,6 +2,9 @@ package piscine
 
 import "os"
 
+const maxInt int = int(^uint(0) >> 1)
+const minInt int = -maxInt - 1
+
 func atoi(str string) int {
 	str_len := 0
 	for range str {
@@ -20,15 +23,6 @@ func atoi(str string) int {
 	}
 
 	// Convert digits
-	intSize := 32 << (^uint(0) >> 63)
-	var maxInt, minInt int
-	if intSize == 32 {
-		maxInt = 1<<31 - 1
-		minInt = -1 << 31
-	} else {
-		maxInt = 1<<63 - 1
-		minInt = -1 << 63
-	}
 	for i < str_len && str[i] >= '0' && str[i] <= '9' {
 		digit := int(str[i] - '0')
 		if !neg && (res > (maxInt-digit)/10) {
@@ -49,6 +43,13 @@ func atoi(str string) int {
 }
 
 func validNumber(str string) bool {
+	str_len := 0
+	for range str {
+		str_len++
+	}
+	if str_len == 0 || ((str[0] == '+' || str[0] == '-') && (str_len == 1)) {
+		return false
+	}
 	for i, r := range str {
 		if i == 0 && (r == '+' || r == '-') {
 			continue
@@ -79,16 +80,6 @@ func checkArgs(args []string) bool {
 }
 
 func detectAddOverflow(n1, n2 int) bool {
-	intSize := 32 << (^uint(0) >> 63)
-	var maxInt, minInt int
-	if intSize == 32 {
-		maxInt = 1<<31 - 1
-		minInt = -1 << 31
-	} else {
-		maxInt = 1<<63 - 1
-		minInt = -1 << 63
-	}
-
 	if n1 > 0 && n2 > 0 {
 		if n1 > maxInt-n2 {
 			return true
@@ -102,16 +93,6 @@ func detectAddOverflow(n1, n2 int) bool {
 }
 
 func detectMulOverflow(n1, n2 int) bool {
-	intSize := 32 << (^uint(0) >> 63)
-	var maxInt, minInt int
-	if intSize == 32 {
-		maxInt = 1<<31 - 1
-		minInt = -1 << 31
-	} else {
-		maxInt = 1<<63 - 1
-		minInt = -1 << 63
-	}
-
 	if n1 > 0 && n2 > 0 {
 		if n1 > maxInt/n2 {
 			return true
@@ -129,9 +110,6 @@ func detectMulOverflow(n1, n2 int) bool {
 			return true
 		}
 	}
-	if (n1 == minInt && n2 == -1) || (n2 == minInt && n1 == -1) {
-		return true
-	}
 	return false
 }
 
@@ -144,33 +122,38 @@ func Doop(args []string) int {
 	op := args[1]
 	n2 := atoi(args[2])
 
-	if op == "+" {
+	switch op {
+	case "+":
 		if detectAddOverflow(n1, n2) {
 			os.Exit(1)
 		}
 		return n1 + n2
-	} else if op == "-" {
+	case "-":
 		if detectAddOverflow(n1, -n2) {
 			os.Exit(1)
 		}
 		return n1 - n2
-	} else if op == "*" {
+	case "*":
 		if detectMulOverflow(n1, n2) {
 			os.Exit(1)
 		}
 		return n1 * n2
-	} else if op == "/" {
+	case "/":
 		if n2 == 0 {
 			os.Stdout.WriteString("No division by 0\n")
 			os.Exit(1)
 		}
+		if n1 == minInt && n2 == -1 {
+			os.Exit(1)
+		}
 		return n1 / n2
-	} else if op == "%" {
+	case "%":
 		if n2 == 0 {
 			os.Stdout.WriteString("No modulo by 0\n")
 			os.Exit(1)
 		}
 		return n1 % n2
+	default:
+		return -1 // Should never reach this
 	}
-	return -1 // Should never reach this
 }
