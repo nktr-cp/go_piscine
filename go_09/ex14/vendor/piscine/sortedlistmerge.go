@@ -24,7 +24,6 @@ func SortListInsert(l *NodeI, data_ref int) *NodeI {
 	return l
 }
 
-// 破壊的な操作でよいか？
 func SortedListMerge(n1 *NodeI, n2 *NodeI) *NodeI {
 	for n2 != nil {
 		n1 = SortListInsert(n1, n2.Data)
