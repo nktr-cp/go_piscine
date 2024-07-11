@@ -31,7 +31,7 @@ func main() {
 	link = listPushBack(link, 3)
 	link = listPushBack(link, 5)
 	link = listPushBack(link, 7)
-	link2 = listPushBack(link2, -2)
-	link2 = listPushBack(link2, 9)
+	// link2 = listPushBack(link2, -2)
+	// link2 = listPushBack(link2, 9)
 	PrintList(piscine.SortedListMerge(link2, link))
 }
