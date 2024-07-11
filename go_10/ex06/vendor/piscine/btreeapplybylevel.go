@@ -56,7 +56,9 @@ func BTreeApplyByLevel(root *TreeNode, f func(...interface{}) (int, error)) {
 
 	for queue.Head != nil {
 		node := ListPopFront(queue).(*TreeNode)
-		f(node.Data)
+		if _, err := f(node.Data); err != nil {
+			return
+		}
 		if node.Left != nil {
 			ListPushBack(queue, node.Left)
 		}
