@@ -26,6 +26,20 @@ func BTreeIsBinary(root *TreeNode) bool {
 		return true
 	}
 
+	if root.Parent != nil {
+		if root.Parent.Left == root {
+			if root.Data >= root.Parent.Data {
+				return false
+			}
+		} else if root.Parent.Right == root {
+			if root.Data <= root.Parent.Data {
+				return false
+			}
+		} else {
+			return false
+		}
+	}
+
 	if root.Left != nil && root.Left.Data >= root.Data {
 		return false
 	}
