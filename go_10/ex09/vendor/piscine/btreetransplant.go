@@ -49,19 +49,18 @@ func BTreeApplyInorder(root *TreeNode, f func(...interface{}) (int, error)) {
 }
 
 func BTreeTransplant(root, node, rplc *TreeNode) *TreeNode {
-	if root == nil || node == nil {
+	if root == nil || node == nil || rplc == nil {
 		return root
 	}
 	if node.Parent == nil {
 		root = rplc
-	}
-	if node == node.Parent.Left {
+	} else if node == node.Parent.Left {
 		node.Parent.Left = rplc
 	} else {
 		node.Parent.Right = rplc
 	}
-	if rplc != nil {
-		rplc.Parent = node.Parent
-	}
+	rplc.Left = node.Left
+	rplc.Right = node.Right
+	rplc.Parent = node.Parent
 	return root
 }
